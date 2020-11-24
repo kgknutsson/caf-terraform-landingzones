@@ -65,7 +65,7 @@ vnets = {
       }
     }
   }
-  spoke_re1 = {
+  spoke_re2 = {
     resource_group_key = "vnet_spoke_region1"
     vnet = {
       name          = "spoke-re2"
@@ -84,7 +84,7 @@ vnets = {
       }
     }
   }
-  spoke_re1 = {
+  spoke_re3 = {
     resource_group_key = "vnet_spoke_region1"
     vnet = {
       name          = "spoke-re3"
@@ -103,7 +103,7 @@ vnets = {
       }
     }
   }
-  spoke_re1 = {
+  spoke_re4 = {
     resource_group_key = "vnet_spoke_region1"
     vnet = {
       name          = "spoke-re4"
