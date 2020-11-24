@@ -21,7 +21,7 @@ default_region = "region1"
 inherit_tags = true
 
 regions = {
-  region1 = "southeastasia"
+  region1 = "easteurope"
   region2 = "eastasia"
 }
 

@@ -29,18 +29,18 @@ vnets = {
     resource_group_key = "vnet_hub_region1"
     vnet = {
       name          = "hub-re1"
-      address_space = ["10.10.100.0/24"]
+      address_space = ["10.10.0.0/23"]
     }
     specialsubnets = {
       AzureFirewallSubnet = {
         name = "AzureFirewallSubnet" #Must be called AzureFirewallSubnet
-        cidr = ["10.10.100.192/26"]
+        cidr = ["10.10.0.192/26"]
       }
     }
     subnets = {
       jumphost = {
         name    = "jumphost"
-        cidr    = ["10.10.100.0/25"]
+        cidr    = ["10.10.0.0/25"]
         nsg_key = "jumphost"
       }
     }
@@ -50,18 +50,75 @@ vnets = {
     resource_group_key = "vnet_spoke_region1"
     vnet = {
       name          = "spoke-re1"
-      address_space = ["10.11.100.0/24"]
+      address_space = ["10.11.0.0/24"]
     }
     specialsubnets = {}
     subnets = {
       jumphost = {
         name    = "jumphost"
-        cidr    = ["10.11.100.0/25"]
+        cidr    = ["10.11.0.0/25"]
         nsg_key = "jumphost"
       }
       webapp1 = {
         name = "webapp-presentation-tier"
-        cidr = ["10.11.100.128/25"]
+        cidr = ["10.11.0.128/25"]
+      }
+    }
+  }
+  spoke_re1 = {
+    resource_group_key = "vnet_spoke_region1"
+    vnet = {
+      name          = "spoke-re2"
+      address_space = ["10.11.1.0/24"]
+    }
+    specialsubnets = {}
+    subnets = {
+      jumphost = {
+        name    = "jumphost"
+        cidr    = ["10.11.1.0/25"]
+        nsg_key = "jumphost"
+      }
+      webapp1 = {
+        name = "webapp-presentation-tier"
+        cidr = ["10.11.1.128/25"]
+      }
+    }
+  }
+  spoke_re1 = {
+    resource_group_key = "vnet_spoke_region1"
+    vnet = {
+      name          = "spoke-re3"
+      address_space = ["10.12.0.0/24"]
+    }
+    specialsubnets = {}
+    subnets = {
+      jumphost = {
+        name    = "jumphost"
+        cidr    = ["10.12.0.0/25"]
+        nsg_key = "jumphost"
+      }
+      webapp1 = {
+        name = "webapp-presentation-tier"
+        cidr = ["10.12.0.128/25"]
+      }
+    }
+  }
+  spoke_re1 = {
+    resource_group_key = "vnet_spoke_region1"
+    vnet = {
+      name          = "spoke-re4"
+      address_space = ["10.12.1.0/24"]
+    }
+    specialsubnets = {}
+    subnets = {
+      jumphost = {
+        name    = "jumphost"
+        cidr    = ["10.12.1.0/25"]
+        nsg_key = "jumphost"
+      }
+      webapp1 = {
+        name = "webapp-presentation-tier"
+        cidr = ["10.12.1.128/25"]
       }
     }
   }
@@ -139,7 +196,7 @@ vnet_peerings = {
   }
 
   spoke-re1_TO_hub-re1 = {
-    name = "hub_re2_TO_hub_re1"
+    name = "spoke_re1_TO_hub_re1"
     from = {
       vnet_key = "spoke_re1"
     }
@@ -152,4 +209,87 @@ vnet_peerings = {
     use_remote_gateways          = false
   }
 
+  hub-re1_TO_spoke-re2 = {
+    name = "hub-re1_TO_spoke-re2"
+    from = {
+      vnet_key = "hub_re1"
+    }
+    to = {
+      vnet_key = "spoke_re2"
+    }
+    allow_virtual_network_access = true
+    allow_forwarded_traffic      = true
+    allow_gateway_transit        = false
+    use_remote_gateways          = false
+  }
+
+  spoke-re2_TO_hub-re1 = {
+    name = "spoke_re2_TO_hub_re1"
+    from = {
+      vnet_key = "spoke_re2"
+    }
+    to = {
+      vnet_key = "hub_re1"
+    }
+    allow_virtual_network_access = true
+    allow_forwarded_traffic      = false
+    allow_gateway_transit        = false
+    use_remote_gateways          = false
+  }
+
+  hub-re1_TO_spoke-re3 = {
+    name = "hub-re1_TO_spoke-re3"
+    from = {
+      vnet_key = "hub_re1"
+    }
+    to = {
+      vnet_key = "spoke_re3"
+    }
+    allow_virtual_network_access = true
+    allow_forwarded_traffic      = true
+    allow_gateway_transit        = false
+    use_remote_gateways          = false
+  }
+
+  spoke-re3_TO_hub-re1 = {
+    name = "spoke_re3_TO_hub_re1"
+    from = {
+      vnet_key = "spoke_re3"
+    }
+    to = {
+      vnet_key = "hub_re1"
+    }
+    allow_virtual_network_access = true
+    allow_forwarded_traffic      = false
+    allow_gateway_transit        = false
+    use_remote_gateways          = false
+  }
+
+  hub-re1_TO_spoke-re4 = {
+    name = "hub-re1_TO_spoke-re4"
+    from = {
+      vnet_key = "hub_re1"
+    }
+    to = {
+      vnet_key = "spoke_re4"
+    }
+    allow_virtual_network_access = true
+    allow_forwarded_traffic      = true
+    allow_gateway_transit        = false
+    use_remote_gateways          = false
+  }
+
+  spoke-re4_TO_hub-re1 = {
+    name = "spoke_re4_TO_hub_re1"
+    from = {
+      vnet_key = "spoke_re4"
+    }
+    to = {
+      vnet_key = "hub_re1"
+    }
+    allow_virtual_network_access = true
+    allow_forwarded_traffic      = false
+    allow_gateway_transit        = false
+    use_remote_gateways          = false
+  }
 }
